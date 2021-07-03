@@ -6,6 +6,7 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+
     defaultConfig {
         applicationId "com.example.noteapp"
         minSdkVersion 23
@@ -31,11 +32,10 @@ android {
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material-rc01'
     implementation 'androidx.cardview:cardview'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     // recycler view
@@ -68,5 +68,5 @@ dependencies {
         annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
         // alternately - if using Java8, use the following instead of lifecycle-compiler
         implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
-}
+    }
 }
