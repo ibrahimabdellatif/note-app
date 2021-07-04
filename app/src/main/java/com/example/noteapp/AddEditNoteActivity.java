@@ -12,8 +12,9 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
-public class addNoteActivity extends AppCompatActivity {
+public class AddEditNoteActivity extends AppCompatActivity {
     public static final String EXTRA_TITLE = "com.example.noteapp.EXTRA_TITLE";
+    public static final String EXTRA_ID = "com.example.noteapp.EXTRA_ID";
     public static final String EXTRA_DESCRIPTION = "com.example.noteapp.EXTRA_DESCRIPTION";
     public static final String EXTRA_PRIORITY = "com.example.noteapp.EXTRA_PRIORITY";
 
@@ -37,7 +38,17 @@ public class addNoteActivity extends AppCompatActivity {
 
         //this line for x closing icon at the top.
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-        setTitle("Add Note");
+        Intent intent = getIntent();
+            //this section for edit note when clicked on it
+        if (intent.hasExtra(EXTRA_ID)) {
+            setTitle("Edit Note");
+            editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
+            editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
+            numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
+        } else {
+            setTitle("Add Note");
+        }
+
     }
 
     private void saveNote() {
@@ -55,6 +66,10 @@ public class addNoteActivity extends AppCompatActivity {
         data.putExtra(EXTRA_DESCRIPTION, description);
         data.putExtra(EXTRA_PRIORITY, priority);
 
+        int id = getIntent().getIntExtra(EXTRA_ID , -1);
+        if (id != -1){
+            data.putExtra(EXTRA_ID , id);
+        }
         //to see input is correct or not
         setResult(RESULT_OK, data);
         finish();

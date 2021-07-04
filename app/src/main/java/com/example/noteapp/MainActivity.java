@@ -25,6 +25,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 1;
+    public static final int EDIT_NOTE_REQUEST = 2;
     private NoteViewModel noteViewModel;
 
     @Override
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, addNoteActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
                 startActivityForResult(intent, ADD_NOTE_REQUEST);
 
             }
@@ -94,20 +95,49 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).attachToRecyclerView(recyclerView);
+
+        adapter.setOnItemClickListener(new NoteAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(Note note) {
+                Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
+                intent.putExtra(AddEditNoteActivity.EXTRA_ID, note.getId());
+                intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, note.getTitle());
+                intent.putExtra(AddEditNoteActivity.EXTRA_DESCRIPTION, note.getDescription());
+                intent.putExtra(AddEditNoteActivity.EXTRA_PRIORITY, note.getPriority());
+                startActivityForResult(intent, EDIT_NOTE_REQUEST);
+
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
-            String title = data.getStringExtra(addNoteActivity.EXTRA_TITLE);
-            String description = data.getStringExtra(addNoteActivity.EXTRA_DESCRIPTION);
-            int priority = data.getIntExtra(addNoteActivity.EXTRA_PRIORITY, 1);
+            String title = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
+            String description = data.getStringExtra(AddEditNoteActivity.EXTRA_DESCRIPTION);
+            int priority = data.getIntExtra(AddEditNoteActivity.EXTRA_PRIORITY, 1);
 
             Note note = new Note(title, description, priority);
             noteViewModel.insert(note);
             Toast.makeText(this, "Note Saved", Toast.LENGTH_SHORT).show();
 
+        } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
+            int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
+
+            if (id == -1) {
+                Toast.makeText(this, "Note Can't Be Updated", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String title = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
+            String description = data.getStringExtra(AddEditNoteActivity.EXTRA_DESCRIPTION);
+            int priority = data.getIntExtra(AddEditNoteActivity.EXTRA_PRIORITY, 1);
+
+            Note note = new Note(title, description, priority);
+            //this is important line because without id Room db can't update the notes
+            note.setId(id);
+            noteViewModel.update(note);
+            Toast.makeText(this, "Note Updated Successfully", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Note not Saved", Toast.LENGTH_SHORT).show();
         }
