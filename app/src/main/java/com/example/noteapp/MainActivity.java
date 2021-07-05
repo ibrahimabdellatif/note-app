@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -155,8 +157,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete_all_notes:
-                noteViewModel.deleteAllNotes();
-                Toast.makeText(this, "All Notes Deleted", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(this)
+                        .setMessage("Are You Sure To Delete All Notes")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                noteViewModel.deleteAllNotes();
+
+                            }
+                        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        Toast.makeText(MainActivity.this, "Nothing Changed", Toast.LENGTH_SHORT).show();
+                    }
+                }).create().show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -164,3 +179,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
+//new AlertDialog.Builder(viewHolder.itemView.getContext())
+//        .setMessage("Are You Sure")
+//        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+//@Override
+//public void onClick(DialogInterface dialog, int which) {
+//        int position = viewHolder.getPosition();
+//        noteViewModel.delete(adapter.getNoteAt(position));
+//        Toast.makeText(MainActivity.this, "Note Deleted", Toast.LENGTH_SHORT).show();
+//        }
+//        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+//@Override
+//public void onClick(DialogInterface dialog, int which) {
+//        adapter.notifyItemChanged(viewHolder.getAdapterPosition());
+//        dialog.cancel();
+//        Toast.makeText(MainActivity.this, "Nothing Changed", Toast.LENGTH_SHORT).show();
+//        }
+//        }).create().show();
