@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">دفتر الملاحظات</string>
+    <string name="hint_title">عنوان</string>
+    <string name="hint_description">وصف</string>
+    <string name="insert_title_and_description">من فضلك ادخل عنوان ووصف</string>
+    <string name="edit_note">تعديل ملاحظة</string>
+    <string name="add_note">اضافة ملاحظه جديدة</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="are_you_sure">هل انت متأكد</string>
+    <string name="note_deleted">تم حذف الملاحظة</string>
+    <string name="nothing_changed">لم يحدث شئ</string>
+    <string name="note_saved">تم حفظ الملاحظة</string>
+    <string name="note_cannot_updated">لا يمكن تحديث الملاحظة</string>
+    <string name="note_updated">تم تحديث الملاحظة بنجاح</string>
+    <string name="note_not_saved">لم يتم حفظ الملاحظة</string>
+    <string name="are_you_sure_to_delete_all_noted">هل انت واثق من حذف جميع الملاحظات</string>
+    <string name="delete_all_notes">حذف جميع الملاحظات</string>
+</resources>

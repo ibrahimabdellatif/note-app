@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Note App</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_description">Description</string>
+    <string name="insert_title_and_description">Please Insert Title and Description</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="add_note">Add Note</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="are_you_sure">Are You Sure</string>
+    <string name="note_deleted">Note Deleted</string>
+    <string name="nothing_changed">Nothing Changed</string>
+    <string name="note_saved">Note Saved</string>
+    <string name="note_cannot_updated">Note Cannot Updated</string>
+    <string name="note_updated">Note Updated Successfully</string>
+    <string name="note_not_saved">Note Not Saved</string>
+    <string name="are_you_sure_to_delete_all_noted">Are You Sure To Delete All Notes</string>
+    <string name="delete_all_notes">Delete All Notes</string>
 </resources>

@@ -78,20 +78,20 @@ public class MainActivity extends AppCompatActivity {
 
                 //show dialog fragment before deleting any note
                 new AlertDialog.Builder(viewHolder.itemView.getContext())
-                        .setMessage("Are You Sure")
-                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        .setMessage(R.string.are_you_sure)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 int position = viewHolder.getPosition();
                                 noteViewModel.delete(adapter.getNoteAt(position));
-                                Toast.makeText(MainActivity.this, "Note Deleted", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, R.string.note_deleted, Toast.LENGTH_SHORT).show();
                             }
-                        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         adapter.notifyItemChanged(viewHolder.getAdapterPosition());
                         dialog.cancel();
-                        Toast.makeText(MainActivity.this, "Nothing Changed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.nothing_changed, Toast.LENGTH_SHORT).show();
                     }
                 }).create().show();
 
@@ -122,13 +122,13 @@ public class MainActivity extends AppCompatActivity {
 
             Note note = new Note(title, description, priority);
             noteViewModel.insert(note);
-            Toast.makeText(this, "Note Saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.note_saved, Toast.LENGTH_SHORT).show();
 
         } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
 
             if (id == -1) {
-                Toast.makeText(this, "Note Can't Be Updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.note_cannot_updated, Toast.LENGTH_SHORT).show();
                 return;
             }
             String title = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
@@ -139,9 +139,9 @@ public class MainActivity extends AppCompatActivity {
             //this is important line because without id Room db can't update the notes
             note.setId(id);
             noteViewModel.update(note);
-            Toast.makeText(this, "Note Updated Successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.note_updated, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Note not Saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.note_not_saved, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -158,18 +158,18 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.delete_all_notes:
                 new AlertDialog.Builder(this)
-                        .setMessage("Are You Sure To Delete All Notes")
-                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        .setMessage(R.string.are_you_sure_to_delete_all_noted)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 noteViewModel.deleteAllNotes();
 
                             }
-                        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        Toast.makeText(MainActivity.this, "Nothing Changed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.nothing_changed, Toast.LENGTH_SHORT).show();
                     }
                 }).create().show();
                 return true;
@@ -179,20 +179,3 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
-//new AlertDialog.Builder(viewHolder.itemView.getContext())
-//        .setMessage("Are You Sure")
-//        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-//@Override
-//public void onClick(DialogInterface dialog, int which) {
-//        int position = viewHolder.getPosition();
-//        noteViewModel.delete(adapter.getNoteAt(position));
-//        Toast.makeText(MainActivity.this, "Note Deleted", Toast.LENGTH_SHORT).show();
-//        }
-//        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-//@Override
-//public void onClick(DialogInterface dialog, int which) {
-//        adapter.notifyItemChanged(viewHolder.getAdapterPosition());
-//        dialog.cancel();
-//        Toast.makeText(MainActivity.this, "Nothing Changed", Toast.LENGTH_SHORT).show();
-//        }
-//        }).create().show();
