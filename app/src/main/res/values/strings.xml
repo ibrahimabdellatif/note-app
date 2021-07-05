@@ -16,4 +16,5 @@
     <string name="note_not_saved">Note Not Saved</string>
     <string name="are_you_sure_to_delete_all_noted">Are You Sure To Delete All Notes</string>
     <string name="delete_all_notes">Delete All Notes</string>
+    <string name="priority">Priority</string>
 </resources>

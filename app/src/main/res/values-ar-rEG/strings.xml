@@ -17,4 +17,5 @@
     <string name="note_not_saved">لم يتم حفظ الملاحظة</string>
     <string name="are_you_sure_to_delete_all_noted">هل انت واثق من حذف جميع الملاحظات</string>
     <string name="delete_all_notes">حذف جميع الملاحظات</string>
+    <string name="priority">درجة الأهمية</string>
 </resources>
